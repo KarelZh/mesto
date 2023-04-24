@@ -1,8 +1,0 @@
-.profile__red {
-    max-width: 10px;
-}
-@media screen and (min-width: 320px) and (max-width: 1279px) {  
-    .profile__red {
-        min-width: 7.5px;
-    }
-}

@@ -1,19 +1,26 @@
 .profile__button {
+    background-image: url(../../../images/ping.png);
+    background-repeat: no-repeat;
     background-color: #000000;
     border: 1px solid white;
-    max-width: 23px;
-    height: 23px;
-    margin: 0;
+    min-width: 23px;
+    min-height: 23px;
+    padding: 0;
+    background-position: center;
 }
 
 .profile__button:hover {
     cursor: pointer;
     opacity: 0.8;
 }
-@media screen and (min-width: 320px) and (max-width: 1279px) {  
+@media screen and (max-width: 1024px) {
+    .profile__button {
+        min-width: 20px;
+        height: 18px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 1023px) {  
     .profile__button {
         min-width: 18px;
-        height: 18px;
-        padding: 0;
     } 
 }
