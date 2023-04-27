@@ -5,9 +5,9 @@
     min-height: 19px;
     border: none;
     background-color: white;
+    cursor: pointer;
 }
 
 .element__button:hover {
-    cursor: pointer;
-    opacity: 0.8;
+    opacity: 0.5;
 }
