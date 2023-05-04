@@ -1,5 +1,7 @@
 .element__image {
-    max-width: 282px;
-    object-fit: fill;
-    object-position: top left;
+    min-width: 282px;
+    height: 282px;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(80%);
 }
