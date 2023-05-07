@@ -25,34 +25,13 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
-// template
-
-
-const elementCards = document.querySelector('.elements');
-
-initialCards.map(function addCards(item) {
-  const templateElement = document.querySelector('.element__template').content;
-  const cards = templateElement.querySelector('.element').cloneNode(true);
-  cards.querySelector('.element__image').src = item.link;
-  cards.querySelector('.element__image').alt = item.name;
-  cards.querySelector('.element__text').textContent = item.name;
-  elementCards.append(cards);
-  //удаление карточек
-  cards.querySelector('.element__reset').addEventListener('click', () => {
-    cards.remove();
-  });
-  return cards;
-});
-
-
-
-// Лайк карточек
-const like = document.querySelectorAll('.element__button');
-like.forEach(function(itemLike) {
-  itemLike.addEventListener('click', function() {
-    itemLike.classList.toggle('element__button_type_like');
-  });  
-});
+  //Переменные попапа создания карточек
+const popupCards = document.querySelector('.popup_type_add');
+const popupReset = popupCards.querySelector('.popup__close_type_reset');
+const popupAdd = document.querySelector('.profile__add');
+const infoMesto = popupCards.querySelector('.popup__form_type_mesto');
+const inputMesto = popupCards.querySelector('.popup__info_type_mesto');
+const inputLink = popupCards.querySelector('.popup__info_type_link');
 
 // Переменные попапа редактирования имени и профессии
 const popupElement = document.querySelector('.popup_type_red');
@@ -64,36 +43,80 @@ const inputJob = popupElement.querySelector('.popup__info_type_job');
 const infoName = document.querySelector('.profile__name');
 const infoJob = document.querySelector('.profile__job');
 
-//Переменные попапа создания карточек
-const popupCards = document.querySelector('.popup_type_add');
-const popupReset = popupCards.querySelector('.popup__close_type_reset');
-const popupAdd = document.querySelector('.profile__add');
-const infoMesto = popupCards.querySelector('.popup__form_type_mesto');
-const inputMesto = popupCards.querySelector('.popup__info_type_mesto');
-const inputLink = popupCards.querySelector('.popup__info_type_link');
+//Переменные попапа с картинкой
+const popupImage = document.querySelector('.popup_type_open');
+const popupExit = popupImage.querySelector('.popup__close_type_exit');
+const imageOpen = popupImage.querySelector('.popup__image');
+const popupText = popupImage.querySelector('.popup__name');
+
+
+
+//функция которая создает карточку и навешивает события
+function newCard(item) {
+  const elementCards = document.querySelector('.elements');
+  const templateElement = document.querySelector('.element__template').content;
+  const templateClone = templateElement.querySelector('.element').cloneNode(true);
+  templateClone.querySelector('.element__image').src = item.link;
+  templateClone.querySelector('.element__image').alt = item.name;
+  templateClone.querySelector('.element__text').textContent = item.name;
+  elementCards.prepend(templateClone);
+  // лайк карточек
+  const like = templateClone.querySelector('.element__button');
+  like.addEventListener('click', function() {
+    like.classList.toggle('element__button_type_like');
+  });
+  // удаление карточек
+  templateClone.querySelector('.element__reset').addEventListener('click', function() {
+    templateClone.remove();
+  });
+  //открытие картинки 
+  const templateOpen = document.querySelector('.element__image');
+  templateOpen.addEventListener('click', function() {
+  imageOpen.src = item.link;
+  imageOpen.alt = item.name;
+  popupText.textContent = item.name;
+  openModal(popupImage);
+});
+
+  return templateClone;
+};
+//функция,которая отрисовывает созданные карточки
+initialCards.forEach(function addCard(item) {
+  newCard(item);
+});
 
 
 
 function openModal(modal) {
-    modal.classList.add('popup_opened');
-    inputName.value = infoName.textContent;
-    inputJob.value = infoJob.textContent;
+  modal.classList.add('popup_opened');
+  inputName.value = infoName.textContent;
+  inputJob.value = infoJob.textContent;
 };
 
 function closeModal(modal) {
-    modal.classList.remove('popup_opened');
+  modal.classList.remove('popup_opened');
 };
-
-function handleFormSubmit (evt) {
-    evt.preventDefault();
-    infoName.textContent = inputName.value;
-    infoJob.textContent = inputJob.value;
-    closeModal(popupElement);
-};
-
 
 popupOpen.addEventListener('click', () => openModal(popupElement));
 popupAdd.addEventListener('click', () => openModal(popupCards));
 popupClose.addEventListener('click', () => closeModal(popupElement));
 popupReset.addEventListener('click', () => closeModal(popupCards));
-infoSave.addEventListener('submit', handleFormSubmit);
+popupExit.addEventListener('click', () => closeModal(popupImage));
+
+
+
+infoMesto.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  const name = inputMesto.value;
+  const link = inputLink.value;
+  const item = { name, link };
+  newCard(item);
+  closeModal(popupCards);
+});
+infoSave.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  infoName.textContent = inputName.value;
+  infoJob.textContent = inputJob.value;
+  closeModal(popupElement);
+});
+

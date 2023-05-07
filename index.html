@@ -34,26 +34,40 @@
   </footer>
   <!-- Попап редактирования имени и профессии --> 
   <section class="popup popup_type_red">
-    <button class="popup__close popup__close_type_closed" type="reset"></button>
-    <div class="popup__container">
-      <p class="popup__text">Редактировать профиль</p>
-      <form action="" class="popup__form popup__form_type_name" name="info">
-        <input class="popup__info popup__info_type_name" type="text" name="name" placeholder="Имя">
-        <input class="popup__info popup__info_type_job" type="text" name="name" placeholder="Профессия">
-        <button class="popup__button popup__button_type_save" type="submit">Сохранить</button>
-      </form>
+    <div class="popup__const">
+      <button class="popup__close popup__close_type_closed" type="reset"></button>
+      <div class="popup__container">
+        <p class="popup__text">Редактировать профиль</p>
+        <form action="" class="popup__form popup__form_type_name" name="info">
+          <input class="popup__info popup__info_type_name" type="text" name="name" placeholder="Имя">
+          <input class="popup__info popup__info_type_job" type="text" name="name" placeholder="Профессия">
+          <button class="popup__button popup__button_type_save" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
   </section>
   <!-- Попап добавления карточек -->
   <section class="popup popup_type_add">
-    <button class="popup__close popup__close_type_reset" type="reset"></button>
-    <div class="popup__container">
-      <p class="popup__text">Новое место</p>
-      <form action="" class="popup__form popup__form_type_mesto" name="mesto">
-        <input class="popup__info popup__info_type_mesto" type="text" name="name" placeholder="Название">
-        <input class="popup__info popup__info_type_link" type="text" name="name" placeholder="Ссылка на картинку">
-        <button class="popup__button popup__button_type_add" type="submit">Создать</button>
-      </form>
+    <div class="popup__const">
+      <button class="popup__close popup__close_type_reset" type="reset"></button>
+      <div class="popup__container">
+        <p class="popup__text">Новое место</p>
+        <form action="" class="popup__form popup__form_type_mesto" name="mesto">
+          <input class="popup__info popup__info_type_mesto" type="text" name="name" placeholder="Название">
+          <input class="popup__info popup__info_type_link" type="text" name="name" placeholder="Ссылка на картинку">
+          <button class="popup__button popup__button_type_add" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- Попап картинки -->
+  <section class="popup popup_type_open">
+    <div class="popup__const">
+        <button class="popup__close popup__close_type_exit" type="reset"></button>
+      <div>
+        <img class="popup__image">
+        <p class="popup__name">Байкал</p>
+      </div>
     </div>
   </section>
 
