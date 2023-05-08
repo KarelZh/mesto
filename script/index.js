@@ -26,16 +26,16 @@ const initialCards = [
     }
   ];
   //Переменные попапа создания карточек
-const popupCards = document.querySelector('.popup_type_add');
-const popupReset = popupCards.querySelector('.popup__close_type_reset');
+const popupCards = document.querySelector('.popup_type_card');
+const popupReset = popupCards.querySelector('.popup__close_type_card');
 const popupAdd = document.querySelector('.profile__add');
 const infoMesto = popupCards.querySelector('.popup__form_type_mesto');
 const inputMesto = popupCards.querySelector('.popup__info_type_mesto');
 const inputLink = popupCards.querySelector('.popup__info_type_link');
 
 // Переменные попапа редактирования имени и профессии
-const popupElement = document.querySelector('.popup_type_red');
-const popupClose = popupElement.querySelector('.popup__close_type_closed');
+const popupElement = document.querySelector('.popup_type_information');
+const popupClose = popupElement.querySelector('.popup__close_type_information');
 const popupOpen = document.querySelector('.profile__button');
 const infoSave = popupElement.querySelector('.popup__form_type_name');
 const inputName = popupElement.querySelector('.popup__info_type_name');
@@ -44,22 +44,21 @@ const infoName = document.querySelector('.profile__name');
 const infoJob = document.querySelector('.profile__job');
 
 //Переменные попапа с картинкой
-const popupImage = document.querySelector('.popup_type_open');
-const popupExit = popupImage.querySelector('.popup__close_type_exit');
+const popupImage = document.querySelector('.popup_type_image');
+const popupExit = popupImage.querySelector('.popup__close_type_image');
 const imageOpen = popupImage.querySelector('.popup__image');
 const popupText = popupImage.querySelector('.popup__name');
 
-
+const elementCards = document.querySelector('.elements');
+const templateElement = document.querySelector('.element__template').content;
 
 //функция которая создает карточку и навешивает события
 function newCard(item) {
-  const elementCards = document.querySelector('.elements');
-  const templateElement = document.querySelector('.element__template').content;
   const templateClone = templateElement.querySelector('.element').cloneNode(true);
   templateClone.querySelector('.element__image').src = item.link;
   templateClone.querySelector('.element__image').alt = item.name;
   templateClone.querySelector('.element__text').textContent = item.name;
-  elementCards.prepend(templateClone);
+  
   // лайк карточек
   const like = templateClone.querySelector('.element__button');
   like.addEventListener('click', function() {
@@ -70,7 +69,7 @@ function newCard(item) {
     templateClone.remove();
   });
   //открытие картинки 
-  const templateOpen = document.querySelector('.element__image');
+  const templateOpen = templateClone.querySelector('.element__image');
   templateOpen.addEventListener('click', function() {
   imageOpen.src = item.link;
   imageOpen.alt = item.name;
@@ -80,24 +79,31 @@ function newCard(item) {
 
   return templateClone;
 };
+function addCards(item) {
+  elementCards.prepend(newCard(item));
+}
 //функция,которая отрисовывает созданные карточки
-initialCards.forEach(function addCard(item) {
-  newCard(item);
+initialCards.forEach(function arrays(item) {
+  addCards(item);
 });
 
 
 
 function openModal(modal) {
   modal.classList.add('popup_opened');
-  inputName.value = infoName.textContent;
-  inputJob.value = infoJob.textContent;
 };
 
 function closeModal(modal) {
   modal.classList.remove('popup_opened');
 };
 
-popupOpen.addEventListener('click', () => openModal(popupElement));
+popupOpen.addEventListener('click', function() {
+  inputName.value = infoName.textContent;
+  inputJob.value = infoJob.textContent;
+  openModal(popupElement);
+});
+
+
 popupAdd.addEventListener('click', () => openModal(popupCards));
 popupClose.addEventListener('click', () => closeModal(popupElement));
 popupReset.addEventListener('click', () => closeModal(popupCards));
@@ -110,7 +116,8 @@ infoMesto.addEventListener('submit', function(evt) {
   const name = inputMesto.value;
   const link = inputLink.value;
   const item = { name, link };
-  newCard(item);
+  addCards(item);
+  infoMesto.reset();
   closeModal(popupCards);
 });
 infoSave.addEventListener('submit', function(evt) {
