@@ -27,25 +27,25 @@ const initialCards = [
   ];
   //Переменные попапа создания карточек
 const popupCards = document.querySelector('.popup_type_card');
-const popupReset = popupCards.querySelector('.popup__close_type_card');
+const closeCards = popupCards.querySelector('.popup__close_type_card');
 const popupAdd = document.querySelector('.profile__add');
 const infoMesto = popupCards.querySelector('.popup__form_type_mesto');
 const inputMesto = popupCards.querySelector('.popup__info_type_mesto');
 const inputLink = popupCards.querySelector('.popup__info_type_link');
 
 // Переменные попапа редактирования имени и профессии
-const popupElement = document.querySelector('.popup_type_information');
-const popupClose = popupElement.querySelector('.popup__close_type_information');
+const popupInformation = document.querySelector('.popup_type_information');
+const closeInformation = popupInformation.querySelector('.popup__close_type_information');
 const popupOpen = document.querySelector('.profile__button');
-const infoSave = popupElement.querySelector('.popup__form_type_name');
-const inputName = popupElement.querySelector('.popup__info_type_name');
-const inputJob = popupElement.querySelector('.popup__info_type_job');
+const infoSave = popupInformation.querySelector('.popup__form_type_name');
+const inputName = popupInformation.querySelector('.popup__info_type_name');
+const inputJob = popupInformation.querySelector('.popup__info_type_job');
 const infoName = document.querySelector('.profile__name');
 const infoJob = document.querySelector('.profile__job');
 
 //Переменные попапа с картинкой
 const popupImage = document.querySelector('.popup_type_image');
-const popupExit = popupImage.querySelector('.popup__close_type_image');
+const closeImage = popupImage.querySelector('.popup__close_type_image');
 const imageOpen = popupImage.querySelector('.popup__image');
 const popupText = popupImage.querySelector('.popup__name');
 
@@ -100,14 +100,14 @@ function closeModal(modal) {
 popupOpen.addEventListener('click', function() {
   inputName.value = infoName.textContent;
   inputJob.value = infoJob.textContent;
-  openModal(popupElement);
+  openModal(popupInformation);
 });
 
 
 popupAdd.addEventListener('click', () => openModal(popupCards));
-popupClose.addEventListener('click', () => closeModal(popupElement));
-popupReset.addEventListener('click', () => closeModal(popupCards));
-popupExit.addEventListener('click', () => closeModal(popupImage));
+closeInformation.addEventListener('click', () => closeModal(popupInformation));
+closeCards.addEventListener('click', () => closeModal(popupCards));
+closeImage.addEventListener('click', () => closeModal(popupImage));
 
 
 
@@ -124,6 +124,6 @@ infoSave.addEventListener('submit', function(evt) {
   evt.preventDefault();
   infoName.textContent = inputName.value;
   infoJob.textContent = inputJob.value;
-  closeModal(popupElement);
+  closeModal(popupInformation);
 });
 
