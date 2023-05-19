@@ -38,3 +38,6 @@
 @import url(../blocks/popup/__const/popup__const.css);
 @import url(../blocks/popup/__name/popup__name.css);
 @import url(../blocks/popup/__close/_type_exit/popup__close_type_exit.css);
+@import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__info/_type_inactive/popup__info_type_inactive.css);
+@import url(../blocks/popup/__button/_type_disabled/popup__button_type_disabled.css);
