@@ -26,7 +26,7 @@ class Card {
       this._likeCard();
     });
     this._element.querySelector('.element__reset').addEventListener('click', () => {
-      this._resetCard();
+      this._deleteCard();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._openImage({link: this._link, name: this._name} )
@@ -37,8 +37,7 @@ class Card {
   _likeCard() {
     this._element.querySelector('.element__button').classList.toggle('element__button_type_like');
   };
-  _resetCard() {
-    this._element.querySelector('.element__reset');
+  _deleteCard() {
     this._element.remove();
   };
   

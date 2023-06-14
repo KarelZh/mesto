@@ -1,5 +1,5 @@
-import { Card } from './cards.js';
-import { FormValidator } from './validate.js';
+import { Card } from './card.js';
+import { FormValidator } from './FormValidator.js';
 const initialCards = [
   {
     name: 'Архыз',
@@ -72,7 +72,7 @@ function closeModal(modal) {
 popupOpen.addEventListener('click', function() {
   informationName.value = infoName.textContent;
   informationJob.value = infoJob.textContent;
-  addFormInformation._enableButton();
+  formProfileValidator.enableButton();
   openModal(popupInformation);
 });
 function openImage(data) {
@@ -111,8 +111,9 @@ formCard.addEventListener('submit', function(evt) {
   const name = cardMesto.value;
   const link = cardLink.value;
   const item = { name, link };
-  addCards(item);
+  addCard(item);
   formCard.reset();
+  formCardValidator.disabledButton();
   closeModal(popupCard);
 });
 formInformation.addEventListener('submit', function(evt) {
@@ -122,20 +123,22 @@ formInformation.addEventListener('submit', function(evt) {
   closeModal(popupInformation);
 });
 const mesto = document.querySelector('.elements');
-
-function addCards(item) {
-  const newCard = new Card(item, '.element__template', openImage);
-  const newElement = newCard.generateCard();
-  mesto.prepend(newElement);
+function createCard(item) {
+  const newCard = new Card(item, '.element__template', openImage); 
+  return newCard.generateCard();
+}
+function addCard(item) {
+  createCard(item);
+  mesto.prepend(createCard(item));
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '.element__template', openImage);
-  const cardElement = card.generateCard();
-  mesto.append(cardElement);
+  createCard(item);
+  mesto.append(createCard(item));
 });
 
-const addFormInformation = new FormValidator(configForm, formInformation);
-const editFormCard = new FormValidator(configForm, formCard);
-addFormInformation.enableValidation();
-editFormCard.enableValidation();
+
+const formProfileValidator = new FormValidator(configForm, formInformation);
+const formCardValidator = new FormValidator(configForm, formCard);
+formProfileValidator.enableValidation();
+formCardValidator.enableValidation();
