@@ -122,19 +122,17 @@ formInformation.addEventListener('submit', function(evt) {
   infoJob.textContent = informationJob.value;
   closeModal(popupInformation);
 });
-const mesto = document.querySelector('.elements');
+const cardsContainer = document.querySelector('.elements');
 function createCard(item) {
   const newCard = new Card(item, '.element__template', openImage); 
   return newCard.generateCard();
 }
 function addCard(item) {
-  createCard(item);
-  mesto.prepend(createCard(item));
+  cardsContainer.prepend(createCard(item));
 }
 
 initialCards.forEach((item) => {
-  createCard(item);
-  mesto.append(createCard(item));
+  cardsContainer.append(createCard(item));
 });
 
 
