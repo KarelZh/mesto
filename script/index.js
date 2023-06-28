@@ -4,6 +4,7 @@ import { Section } from './Section.js';
 import { Popup } from './Popup.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 const initialCards = [
   {
     name: 'Архыз',
@@ -61,27 +62,61 @@ const imageClose = popupImage.querySelector('.popup__close_type_image');
 const imageOpen = popupImage.querySelector('.popup__image');
 const ImageText = popupImage.querySelector('.popup__name');
 
-const popupInfoMesto = new Popup({ selector: '.popup_type_information' });
-const popupAddCard = new Popup({ selector: '.popup_type_card'});
+//форма отправки добавления карточки
+const popupFormCard = new PopupWithForm({
+  selector: '.popup_type_card',
+  submit: (item) => {
+    cardsList.addItem(createCard(item));
+    formCardValidator.disabledButton();
+    popupFormCard.close();
+  }
+})
+//Открытие попапа добавления карточки
+popupAdd.addEventListener('click', () => {
+  popupFormCard.open();
+});
+
+
+popupFormCard.setEventListeners(); 
 
 const popupImageCard = new PopupWithImage({
   selector: '.popup_type_image',
   image: imageOpen,
   text: ImageText
 });
-
-popupOpen.addEventListener('click', function() {
-  informationName.value = infoName.textContent;
-  informationJob.value = infoJob.textContent;
-  formProfileValidator.enableButton();
-  popupInfoMesto.open();
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__name',
+  userJobSelector: '.profile__job',
 });
+const popupEditProfile = new PopupWithForm({
+  selector: '.popup_type_information', 
+  submit: (item) => {
+    userInfo.setUserInfo(item);
+    popupEditProfile.close();
+  },
+});
+popupOpen.addEventListener("click", () => {
+  popupEditProfile.setInputValues(userInfo.getUserInfo());
+  formProfileValidator.enableButton();
+  popupEditProfile.open();
+});
+
+
+
+popupEditProfile.setEventListeners();
+
+//popupOpen.addEventListener('click', function() {
+//  informationName.value = infoName.textContent;
+//  informationJob.value = infoJob.textContent;
+//  formProfileValidator.enableButton();
+//  popupInfoMesto.open();
+//});
 function openImage(data) { 
   popupImageCard.open(data);
 };
 
 
-popupAdd.addEventListener('click', () => popupAddCard.open());
+//popupAdd.addEventListener('click', () => popupAddCard.open());
 
 
 //formCard.addEventListener('submit', function(evt) {
@@ -94,12 +129,12 @@ popupAdd.addEventListener('click', () => popupAddCard.open());
 //  formCardValidator.disabledButton();
 //  popupAddCard.close();
 //});
-formInformation.addEventListener('submit', function(evt) {
-  evt.preventDefault();
-  infoName.textContent = informationName.value;
-  infoJob.textContent = informationJob.value;
-  popupInfoMesto.close();
-});
+//formInformation.addEventListener('submit', function(evt) {
+//  evt.preventDefault();
+//  infoName.textContent = informationName.value;
+//  infoJob.textContent = informationJob.value;
+//  popupInfoMesto.close();
+//});
 
 
 
@@ -132,14 +167,5 @@ const cardsList = new Section({
 },cardsContainer);
 cardsList.renderItems();
 
-const popupFormCard = new PopupWithForm({
-  selector: '.popup__form_type_mesto',
-  submit: (item) => {
-    cardsList.addItem(addCard(createCard(item)));
-    formCardValidator.disabledButton();
-    popupFormCard.close();
-  }
-})
-popupFormCard.setEventListeners();
 
 
