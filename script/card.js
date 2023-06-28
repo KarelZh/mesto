@@ -29,7 +29,7 @@ class Card {
       this._deleteCard();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._openImage({link: this._link, name: this._name} )
+      this._openImage({link: this._link, name: this._name}); 
     })
        
     

@@ -1,5 +1,9 @@
 import { Card } from './card.js';
 import { FormValidator } from './FormValidator.js';
+import { Section } from './Section.js';
+import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
 const initialCards = [
   {
     name: 'Архыз',
@@ -57,72 +61,50 @@ const imageClose = popupImage.querySelector('.popup__close_type_image');
 const imageOpen = popupImage.querySelector('.popup__image');
 const ImageText = popupImage.querySelector('.popup__name');
 
-function openModal(modal) {
-  modal.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEscape);
-  modal.addEventListener('click', closeOverlay);
-};
+const popupInfoMesto = new Popup({ selector: '.popup_type_information' });
+const popupAddCard = new Popup({ selector: '.popup_type_card'});
 
-function closeModal(modal) {
-  modal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEscape);
-  modal.removeEventListener('click', closeOverlay);
-};
+const popupImageCard = new PopupWithImage({
+  selector: '.popup_type_image',
+  image: imageOpen,
+  text: ImageText
+});
 
 popupOpen.addEventListener('click', function() {
   informationName.value = infoName.textContent;
   informationJob.value = infoJob.textContent;
   formProfileValidator.enableButton();
-  openModal(popupInformation);
+  popupInfoMesto.open();
 });
-function openImage(data) {
-  imageOpen.src = data.link;
-  imageOpen.alt = data.name;
-  ImageText.textContent = data.name;
-  openModal(popupImage);
+function openImage(data) { 
+  popupImageCard.open(data);
 };
 
 
-//Закрытие попапа через ESC
-
-function closePopupEscape(evt) {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector('.popup_opened');
-    closeModal(popupOpened);
-  };
-};
-
-//Закрытие попапа через Overlay
-
-function closeOverlay(evt) {
-  if (evt.currentTarget === evt.target) {
-    closeModal(evt.currentTarget);
-  };
-};
+popupAdd.addEventListener('click', () => popupAddCard.open());
 
 
-popupAdd.addEventListener('click', () => openModal(popupCard));
-informationClose.addEventListener('click', () => closeModal(popupInformation));
-cardClose.addEventListener('click', () => closeModal(popupCard));
-imageClose.addEventListener('click', () => closeModal(popupImage));
-
-formCard.addEventListener('submit', function(evt) {
-  evt.preventDefault();
-  const name = cardMesto.value;
-  const link = cardLink.value;
-  const item = { name, link };
-  addCard(item);
-  formCard.reset();
-  formCardValidator.disabledButton();
-  closeModal(popupCard);
-});
+//formCard.addEventListener('submit', function(evt) {
+//  evt.preventDefault();
+//  const name = cardMesto.value;
+//  const link = cardLink.value;
+//  const item = { name, link };
+//  addCard(item);
+//  formCard.reset();
+//  formCardValidator.disabledButton();
+//  popupAddCard.close();
+//});
 formInformation.addEventListener('submit', function(evt) {
   evt.preventDefault();
   infoName.textContent = informationName.value;
   infoJob.textContent = informationJob.value;
-  closeModal(popupInformation);
+  popupInfoMesto.close();
 });
+
+
+
 const cardsContainer = document.querySelector('.elements');
+
 function createCard(item) {
   const newCard = new Card(item, '.element__template', openImage); 
   return newCard.generateCard();
@@ -140,3 +122,24 @@ const formProfileValidator = new FormValidator(configForm, formInformation);
 const formCardValidator = new FormValidator(configForm, formCard);
 formProfileValidator.enableValidation();
 formCardValidator.enableValidation();
+
+
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    cardsList.addItem(createCard(item));
+  },
+},cardsContainer);
+cardsList.renderItems();
+
+const popupFormCard = new PopupWithForm({
+  selector: '.popup__form_type_mesto',
+  submit: (item) => {
+    cardsList.addItem(addCard(createCard(item)));
+    formCardValidator.disabledButton();
+    popupFormCard.close();
+  }
+})
+popupFormCard.setEventListeners();
+
+
