@@ -86,7 +86,7 @@ const popupImageCard = new PopupWithImage({
 });
 const userInfo = new UserInfo({
   userNameSelector: '.profile__name',
-  userJobSelector: '.profile__job',
+  userJobSelector: '.profile__job'
 });
 const popupEditProfile = new PopupWithForm({
   selector: '.popup_type_information', 
@@ -95,6 +95,7 @@ const popupEditProfile = new PopupWithForm({
     popupEditProfile.close();
   },
 });
+//открытие попапа информации о себе
 popupOpen.addEventListener("click", () => {
   popupEditProfile.setInputValues(userInfo.getUserInfo());
   formProfileValidator.enableButton();
@@ -111,6 +112,7 @@ popupEditProfile.setEventListeners();
 //  formProfileValidator.enableButton();
 //  popupInfoMesto.open();
 //});
+//открытие попапа с картинкой
 function openImage(data) { 
   popupImageCard.open(data);
 };
