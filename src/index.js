@@ -1,10 +1,11 @@
-import { Card } from './card.js';
-import { FormValidator } from './FormValidator.js';
-import { Section } from './Section.js';
-import { Popup } from './Popup.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import '../pages/index.css';
+import { Card } from '../script/card.js';
+import { FormValidator } from '../script/FormValidator.js';
+import { Section } from '../script/Section.js';
+import { Popup } from '../script/Popup.js';
+import { PopupWithImage } from '../script/PopupWithImage.js';
+import { PopupWithForm } from '../script/PopupWithForm.js';
+import { UserInfo } from '../script/UserInfo.js';
 const initialCards = [
   {
     name: 'Архыз',
@@ -40,25 +41,16 @@ const configForm = {
 };
 //Переменные попапа создания карточек
 const popupCard = document.querySelector('.popup_type_card');
-const cardClose = popupCard.querySelector('.popup__close_type_card');
 const popupAdd = document.querySelector('.profile__add');
 const formCard = popupCard.querySelector('.popup__form_type_mesto');
-const cardMesto = popupCard.querySelector('.popup__info_type_mesto');
-const cardLink = popupCard.querySelector('.popup__info_type_link');
 
 // Переменные попапа редактирования имени и профессии
 const popupInformation = document.querySelector('.popup_type_information');
-const informationClose = popupInformation.querySelector('.popup__close_type_information');
 const popupOpen = document.querySelector('.profile__button');
 const formInformation = popupInformation.querySelector('.popup__form_type_name');
-const informationName = popupInformation.querySelector('.popup__info_type_name');
-const informationJob = popupInformation.querySelector('.popup__info_type_job');
-const infoName = document.querySelector('.profile__name');
-const infoJob = document.querySelector('.profile__job');
 
 //Переменные попапа с картинкой
 const popupImage = document.querySelector('.popup_type_image');
-const imageClose = popupImage.querySelector('.popup__close_type_image');
 const imageOpen = popupImage.querySelector('.popup__image');
 const ImageText = popupImage.querySelector('.popup__name');
 
@@ -66,7 +58,7 @@ const ImageText = popupImage.querySelector('.popup__name');
 const popupFormCard = new PopupWithForm({
   selector: '.popup_type_card',
   submit: (item) => {
-    cardsList.addItem(createCard(item));
+    cardsContainer.prepend(createCard(item));;
     formCardValidator.disabledButton();
     popupFormCard.close();
   }
@@ -106,49 +98,24 @@ popupOpen.addEventListener("click", () => {
 
 popupEditProfile.setEventListeners();
 
-//popupOpen.addEventListener('click', function() {
-//  informationName.value = infoName.textContent;
-//  informationJob.value = infoJob.textContent;
-//  formProfileValidator.enableButton();
-//  popupInfoMesto.open();
-//});
+
 //открытие попапа с картинкой
-function openImage(data) { 
+function handleCardClick(data) { 
   popupImageCard.open(data);
 };
 
+popupImageCard.setEventListeners();
 
-//popupAdd.addEventListener('click', () => popupAddCard.open());
-
-
-//formCard.addEventListener('submit', function(evt) {
-//  evt.preventDefault();
-//  const name = cardMesto.value;
-//  const link = cardLink.value;
-//  const item = { name, link };
-//  addCard(item);
-//  formCard.reset();
-//  formCardValidator.disabledButton();
-//  popupAddCard.close();
-//});
-//formInformation.addEventListener('submit', function(evt) {
-//  evt.preventDefault();
-//  infoName.textContent = informationName.value;
-//  infoJob.textContent = informationJob.value;
-//  popupInfoMesto.close();
-//});
 
 
 
 const cardsContainer = document.querySelector('.elements');
 
 function createCard(item) {
-  const newCard = new Card(item, '.element__template', openImage); 
+  const newCard = new Card(item, '.element__template', handleCardClick); 
   return newCard.generateCard();
 }
-function addCard(item) {
-  cardsContainer.prepend(createCard(item));
-}
+
 
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
@@ -170,4 +137,4 @@ const cardsList = new Section({
 cardsList.renderItems();
 
 
-
+console.log('Hello, World!')

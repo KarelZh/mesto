@@ -1,9 +1,9 @@
 class Card {
-  constructor(data, templateSelector, openImage) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openImage = openImage;
+    this._openImage = handleCardClick;
   };
 
   _getTemplate() {
