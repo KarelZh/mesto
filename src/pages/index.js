@@ -1,11 +1,11 @@
 import '../pages/index.css';
-import { Card } from './card.js';
-import { FormValidator } from './FormValidator.js';
-import { Section } from './Section.js';
-import { Popup } from './Popup.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import { Popup } from '../components/Popup.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
 const initialCards = [
   {
     name: 'Архыз',
@@ -52,13 +52,13 @@ const formInformation = popupInformation.querySelector('.popup__form_type_name')
 //Переменные попапа с картинкой
 const popupImage = document.querySelector('.popup_type_image');
 const imageOpen = popupImage.querySelector('.popup__image');
-const ImageText = popupImage.querySelector('.popup__name');
+const imageText = popupImage.querySelector('.popup__name');
 
 //форма отправки добавления карточки
 const popupFormCard = new PopupWithForm({
   selector: '.popup_type_card',
   submit: (item) => {
-    cardsContainer.prepend(createCard(item));;
+    cardsList.addItem(createCard(item));;
     formCardValidator.disabledButton();
     popupFormCard.close();
   }
@@ -74,7 +74,7 @@ popupFormCard.setEventListeners();
 const popupImageCard = new PopupWithImage({
   selector: '.popup_type_image',
   image: imageOpen,
-  text: ImageText
+  text: imageText
 });
 const userInfo = new UserInfo({
   userNameSelector: '.profile__name',
@@ -116,12 +116,6 @@ function createCard(item) {
   return newCard.generateCard();
 }
 
-
-initialCards.forEach((item) => {
-  cardsContainer.append(createCard(item));
-});
-
-
 const formProfileValidator = new FormValidator(configForm, formInformation);
 const formCardValidator = new FormValidator(configForm, formCard);
 formProfileValidator.enableValidation();
@@ -133,7 +127,7 @@ const cardsList = new Section({
   renderer: (item) => {
     cardsList.addItem(createCard(item));
   },
-},cardsContainer);
+}, '.elements');
 cardsList.renderItems();
 
 
