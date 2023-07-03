@@ -13,7 +13,7 @@
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__image" src="./images/Jak.png" alt="Жак-ИвКусто">
+      <img class="profile__image" src="<%=require('./images/Jak.png')%>" alt="Жак-ИвКусто">
       <div class="profile__info">
         <div class="profile__save">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -39,8 +39,8 @@
       <div class="popup__container">
         <p class="popup__text">Редактировать профиль</p>
         <form action="" class="popup__form popup__form_type_name" name="info" novalidate>
-          <input minlength="2" maxlength="40" class="popup__info popup__info_type_name" type="text" name="name" placeholder="Имя" required>
-          <span id="name-error" class="popup__error"></span>
+          <input minlength="2" maxlength="40" class="popup__info popup__info_type_name" type="text" name="prof" placeholder="Имя" required>
+          <span id="prof-error" class="popup__error"></span>
           <input minlength="2" maxlength="200" class="popup__info popup__info_type_job" type="text" name="job" placeholder="Профессия" required>
           <span id="job-error" class="popup__error"></span>
           <button class="popup__button popup__button_type_save" type="submit">Сохранить</button>

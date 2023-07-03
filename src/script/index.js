@@ -1,11 +1,11 @@
 import '../pages/index.css';
-import { Card } from '../script/card.js';
-import { FormValidator } from '../script/FormValidator.js';
-import { Section } from '../script/Section.js';
-import { Popup } from '../script/Popup.js';
-import { PopupWithImage } from '../script/PopupWithImage.js';
-import { PopupWithForm } from '../script/PopupWithForm.js';
-import { UserInfo } from '../script/UserInfo.js';
+import { Card } from './card.js';
+import { FormValidator } from './FormValidator.js';
+import { Section } from './Section.js';
+import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 const initialCards = [
   {
     name: 'Архыз',
