@@ -33,10 +33,10 @@
 @import url(../blocks/popup/__info/_type_job/popup__info_type_job.css);
 @import url(../blocks/popup/__info/_type_mesto/popup__info_type_mesto.css);
 @import url(../blocks/popup/__info/_type_link/popup__info_type_link.css);
+@import url(../blocks/popup/__info/_type_avatar/popup__info_type_avatar.css);
 @import url(../blocks/popup/__button/popup__button.css);
 @import url(../blocks/popup/__const/popup__const.css);
 @import url(../blocks/popup/__name/popup__name.css);
-/*@import url(../blocks/popup/__close/_type_exit/popup__close_type_exit.css);*/
 @import url(../blocks/popup/__error/popup__error.css);
 @import url(../blocks/popup/__info/_type_inactive/popup__info_type_inactive.css);
 @import url(../blocks/popup/__button/_type_disabled/popup__button_type_disabled.css);
