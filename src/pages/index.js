@@ -40,7 +40,7 @@ const formAvatar = popupAvatar.querySelector('.popup__form_type_avatar')
 
 
 const api = new Api({
-  baseUrl: 'https://nomoreparties.co/v1/cohort-72',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72',
   headers: {
     authorization: '9430b557-5691-4068-a9d3-25e6e6adc7cd',
     'Content-Type': 'application/json'
@@ -49,12 +49,15 @@ const api = new Api({
 //форма отправки добавления карточки
 const popupFormCard = new PopupWithForm({
   selector: '.popup_type_card',
-  submit: (item) => {
+  submit: (item, button) => {
+    renderLoad(button, 'Создание...')
     api.generateCard(item.name, item.link, item.likes).then((res) => {
       cardsList.newAddItem(createCard(res))
     })
     .catch((err) => {
       console.error(err)
+    }).finally(() => {
+      renderLoad(button, 'Создать')
     })
     formCardValidator.disabledButton();
     popupFormCard.close();
@@ -81,10 +84,13 @@ const userInfo = new UserInfo({
 });
 const popupEditProfile = new PopupWithForm({
   selector: '.popup_type_information', 
-  submit: (item) => {
+  submit: (item, button) => {
     userInfo.setUserInfo(item);
+    renderLoad(button, 'Сохранение...')
     api.newInfoUser(item.name, item.about).catch((err) => {
       console.error(err)
+    }).finally(() => {
+      renderLoad(button, 'Сохранить')
     })
     popupEditProfile.close();
   }
@@ -133,11 +139,14 @@ popupImageCard.setEventListeners();
 
 const popupFormAvatar = new PopupWithForm({
   selector: '.popup_type_avatar',
-  submit: (item) => {
+  submit: (item, button) => {
+    renderLoad(button, 'Сохранение...')
     api.addAvatar(item.avatar).then((res) => {
-      userInfo.userPhoto(res.avatar)
+      userInfo.userPhoto(res)
     }).catch((err) => {
       console.error(err)
+    }).finally(() => {
+      renderLoad(button, 'Сохранить')
     })
     formAvatarValidator.disabledButton();
     popupFormAvatar.close();
@@ -148,8 +157,10 @@ popupAddAvatar.addEventListener('click', () => {
   popupFormAvatar.open();
 })
 popupFormAvatar.setEventListeners();
-
-
+//Функция смены текста сабмита
+function renderLoad(button, text) {
+    button.textContent = text;
+}
 const cardsContainer = document.querySelector('.elements');
 
 function createCard(item) {
@@ -205,6 +216,7 @@ api.infoUser()
 .then((res) => {
   userID = res._id;
   console.log(userID)
+  console.log(res.avatar)
 })
 .catch((err) => {
   console.error(err);
