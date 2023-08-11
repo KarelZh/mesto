@@ -30,12 +30,12 @@ class Api {
     }).then(this._checkResponse)
   }
 
-  generateCard(name, link, likes) {
+  generateCard(mesto, link, likes) {
     return fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',
       headers: this._options.headers,
       body: JSON.stringify({
-        name: name,
+        name: mesto,
         link: link,
         likes: likes
       }),

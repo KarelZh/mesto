@@ -51,7 +51,7 @@ const popupFormCard = new PopupWithForm({
   selector: '.popup_type_card',
   submit: (item, button) => {
     renderLoad(button, 'Создание...')
-    api.generateCard(item.name, item.link, item.likes).then((res) => {
+    api.generateCard(item.mesto, item.link, item.likes).then((res) => {
       cardsList.newAddItem(createCard(res))
     })
     .catch((err) => {
@@ -87,7 +87,7 @@ const popupEditProfile = new PopupWithForm({
   submit: (item, button) => {
     userInfo.setUserInfo(item);
     renderLoad(button, 'Сохранение...')
-    api.newInfoUser(item.name, item.about).catch((err) => {
+    api.newInfoUser(item.mesto, item.about).catch((err) => {
       console.error(err)
     }).finally(() => {
       renderLoad(button, 'Сохранить')
