@@ -14,7 +14,7 @@ class PopupWithConfirmation extends Popup {
     super.setEventListeners();
     this._popup.addEventListener('click', () => {
       this._deleteCardId(this._item, this._itemId)
-    }, false)
+    })
   }
 }
 export {PopupWithConfirmation};

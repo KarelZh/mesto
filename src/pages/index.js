@@ -83,9 +83,9 @@ const popupDelete = new PopupWithConfirmation({
 })
 
 //Открытие попапа удаления карточка
-//function openDeleteCard(cardElement, cardId) {
-//  popupDelete.open(cardElement, cardId)
-//}
+function openDeleteCard(cardElement, cardId) {
+  popupDelete.open(cardElement, cardId)
+}
 
 popupDelete.setEventListeners();
 popupFormCard.setEventListeners(); 
@@ -172,9 +172,6 @@ function createCard(item) {
     handleCardClick, 
     buttonDeleteCard, 
     userID,
-    function openDeleteCard(cardElement, cardId) {
-      popupDelete.open(cardElement, cardId)
-    },
     function likeCardApi(item) {
       api.likeCard(item).then((res) => {
         newCard.updateLikes(res.likes)
@@ -187,8 +184,8 @@ function createCard(item) {
         newCard.updateLikes(res.likes)
       }).catch((err) => {
         console.error(err)
-      })
-    }); 
+      })  
+    },openDeleteCard); 
   return newCard.generateCard();
 }
 
