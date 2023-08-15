@@ -1,5 +1,6 @@
 class Card {
-  constructor(data, templateSelector, handleCardClick, deleteCardClick, buttonDeleteCard, closeCardClick, userID, deleteCardId, likeCardApi, deleteLikeCardApi) {
+  constructor(data, templateSelector, handleCardClick, buttonDeleteCard, userID, likeCardApi, deleteLikeCardApi, openDeleteCard) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -8,12 +9,10 @@ class Card {
     this._id = userID;
     this._templateSelector = templateSelector;
     this._openImage = handleCardClick;
-    this._openDeleteCard = deleteCardClick;
     this._buttonDeleteCard = buttonDeleteCard;
-    this._closeCardClick = closeCardClick;
-    this._deleteCardId = deleteCardId;
     this._likeCardApi = likeCardApi;
     this._deleteLikeCardApi = deleteLikeCardApi;
+    this._openDeleteCard = openDeleteCard;
   };
 
   _getTemplate() {
@@ -23,6 +22,8 @@ class Card {
   };
   generateCard() {
     this._element = this._getTemplate();
+    this._buttonLike = this._element.querySelector('.element__like_button');
+    this._button = this._element.querySelector('.element__button');
     this._setEventListeners();
 
     this._element.querySelector('.element__image').src = this._link;
@@ -37,45 +38,41 @@ class Card {
   };
 
   updateLikes(likes) {
-    this._element.querySelector('.element__like_button').textContent = this._likes.length = likes.length;
-    if (likes.find((item) => {
+    this._buttonLike.textContent = this._likes.length = likes.length;
+    this._isLiked = likes.find((item) => {
       return item._id === this._id
-    })) {
+    })
+    if (this._isLiked) {
       this._likeCard()
     }else{
       this._deleteLikeCard()
     }
   }
+  _handleDeleteClick() {
+    this._openDeleteCard(this, this._idCard)
+  }
 
   _setEventListeners() {
-    this._element.querySelector('.element__button').addEventListener('click', () => {
-      if (this._element.querySelector('.element__button').classList.contains('element__button_type_like')) {
+    this._button.addEventListener('click', () => {
+      if (this._button.classList.contains('element__button_type_like')) {
         this._deleteLikeCardApi(this._idCard)
       } else {
         this._likeCardApi(this._idCard)
       }
     });
-    this._element.querySelector('.element__reset').addEventListener('click', () => {
-      this._openDeleteCard();
-      this._buttonDeleteCard.addEventListener('click', () => {
-        this._deleteCardId(this._idCard);
-        this._deleteCard();
-        this._closeCardClick();
-      })
-    });
+    this._element.querySelector('.element__reset').addEventListener('click', this._handleDeleteClick())
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._openImage({link: this._link, name: this._name}); 
     })
-       
-    
   };
+
   _likeCard() {
-    this._element.querySelector('.element__button').classList.add('element__button_type_like');
+    this._button.classList.add('element__button_type_like');
   };
   _deleteLikeCard() {
-    this._element.querySelector('.element__button').classList.remove('element__button_type_like')
+    this._button.classList.remove('element__button_type_like')
   }
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
   };
   

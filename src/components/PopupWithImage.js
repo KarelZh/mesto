@@ -5,7 +5,6 @@ class PopupWithImage extends Popup {
     super({selector});
     this._image = image;
     this._text = text;
-    //super._buttonClose;
   }
   open(data) {
     this._image.src = data.link;

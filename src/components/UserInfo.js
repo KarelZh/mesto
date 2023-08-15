@@ -8,13 +8,14 @@ class UserInfo {
     return {
       name: this._userName.textContent,
       about: this._userJob.textContent,
+      avatar: this._userSrc.src
     }
   }
   setUserInfo({name, about}) {
     this._userName.textContent = name;
     this._userJob.textContent = about;
   }
-  userPhoto({avatar}) {
+  setAvatar({avatar}) {
     this._userSrc.src = avatar;
   }
 }

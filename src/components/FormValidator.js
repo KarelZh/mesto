@@ -19,7 +19,7 @@ class FormValidator {
     inputElement.classList.remove(this._inputErrorClass);
     this._errorElement.textContent = inputElement.validationMessage;
   };
-  disabledButton() {
+  disableButton() {
     this._buttonElement.disabled = 'disabled';
     this._buttonElement.classList.add(this._inactiveButtonClass);
   };
@@ -34,7 +34,7 @@ class FormValidator {
   };
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this.disabledButton();
+      this.disableButton();
     } else {
       this.enableButton();
     };

@@ -7,19 +7,19 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  infoUser() {
+  getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers
     }).then(this._checkResponse)
   }
 
-  initialCards() {
+  getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers
     }).then(this._checkResponse)
   }
   
-  newInfoUser(name, about) {
+  setUserInfo(name, about) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._options.headers,
@@ -30,14 +30,13 @@ class Api {
     }).then(this._checkResponse)
   }
 
-  generateCard(mesto, link, likes) {
+  generateCard(mesto, link) {
     return fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',
       headers: this._options.headers,
       body: JSON.stringify({
         name: mesto,
-        link: link,
-        likes: likes
+        link: link
       }),
     }).then(this._checkResponse)
   }
