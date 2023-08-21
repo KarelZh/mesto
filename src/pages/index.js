@@ -72,8 +72,8 @@ popupAdd.addEventListener('click', () => {
 
 const popupDelete = new PopupWithConfirmation({
   selector: '.popup_type_delete',
-  deleteCardId: (cardElement, cardId) => {
-    api.deleteCard(cardId).then(() => {
+  deleteCardId: (cardElement) => {
+    api.deleteCard(getId()).then(() => {
       cardElement.deleteCard();
       popupDelete.close();
     }).catch((err) => {
@@ -83,9 +83,9 @@ const popupDelete = new PopupWithConfirmation({
 })
 
 //Открытие попапа удаления карточка
-function openDeleteCard(cardElement, cardId) {
-  popupDelete.open(cardElement, cardId)
-}
+//function openDeleteCard(cardElement, cardId) {
+//  popupDelete.open(cardElement, cardId)
+//}
 
 popupDelete.setEventListeners();
 popupFormCard.setEventListeners(); 
@@ -184,11 +184,12 @@ function createCard(item) {
         newCard.updateLikes(res.likes)
       }).catch((err) => {
         console.error(err)
-      })  
-    },openDeleteCard); 
+      })
+    }, function openDeleteCard(cardElement) {
+      popupDelete.open(cardElement)
+    }); 
   return newCard.generateCard();
 }
-
 
 
 const formProfileValidator = new FormValidator(configForm, formInformation);

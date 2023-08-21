@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, templateSelector, handleCardClick, buttonDeleteCard, userID, likeCardApi, deleteLikeCardApi, openDeleteCard) {
+  constructor(data, templateSelector, handleCardClick, buttonDeleteCard, userID, likeCardApi, deleteLikeCardApi) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
@@ -12,7 +12,7 @@ class Card {
     this._buttonDeleteCard = buttonDeleteCard;
     this._likeCardApi = likeCardApi;
     this._deleteLikeCardApi = deleteLikeCardApi;
-    this._openDeleteCard = openDeleteCard;
+    //this._openDeleteCard = openDeleteCard;
   };
 
   _getTemplate() {
@@ -30,7 +30,6 @@ class Card {
     this._element.querySelector('.element__image').alt = this._name;
     this._element.querySelector('.element__text').textContent = this._name;
     this.updateLikes(this._likes)
-    //this._element.querySelector('.element__like_button').textContent = this._likes.length;
     if (this._id !== this._userId) {
       this._element.querySelector('.element__reset').remove();
     }
@@ -48,11 +47,12 @@ class Card {
       this._deleteLikeCard()
     }
   }
-  _handleDeleteClick() {
-    this._openDeleteCard(this, this._idCard)
+  getId() {
+    return this._idCard;
   }
 
   _setEventListeners() {
+    this._element.querySelector('.element__reset').addEventListener('click', this._handleDeleteClick)
     this._button.addEventListener('click', () => {
       if (this._button.classList.contains('element__button_type_like')) {
         this._deleteLikeCardApi(this._idCard)
@@ -60,12 +60,13 @@ class Card {
         this._likeCardApi(this._idCard)
       }
     });
-    this._element.querySelector('.element__reset').addEventListener('click', this._handleDeleteClick())
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._openImage({link: this._link, name: this._name}); 
     })
   };
-
+  _handleDeleteClick() {
+    this._openDeleteCard(this);
+  }
   _likeCard() {
     this._button.classList.add('element__button_type_like');
   };
