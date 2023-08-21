@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, templateSelector, handleCardClick, buttonDeleteCard, userID, likeCardApi, deleteLikeCardApi) {
+  constructor(data, templateSelector, handleCardClick, buttonDeleteCard, userID, likeCardApi, deleteLikeCardApi, openDeleteCard) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
@@ -12,7 +12,7 @@ class Card {
     this._buttonDeleteCard = buttonDeleteCard;
     this._likeCardApi = likeCardApi;
     this._deleteLikeCardApi = deleteLikeCardApi;
-    //this._openDeleteCard = openDeleteCard;
+    this._openDeleteCard = openDeleteCard;
   };
 
   _getTemplate() {
