@@ -73,7 +73,7 @@ popupAdd.addEventListener('click', () => {
 const popupDelete = new PopupWithConfirmation({
   selector: '.popup_type_delete',
   deleteCardId: (cardElement) => {
-    api.deleteCard(getId(res)).then(() => {
+    api.deleteCard(getId()).then(() => {
       cardElement.deleteCard();
       popupDelete.close();
     }).catch((err) => {
