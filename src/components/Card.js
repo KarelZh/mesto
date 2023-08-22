@@ -52,19 +52,20 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__reset').addEventListener('click', this._handleDeleteClick)
-    this._button.addEventListener('click', () => {
-      if (this._button.classList.contains('element__button_type_like')) {
-        this._deleteLikeCardApi(this._idCard)
-      } else {
-        this._likeCardApi(this._idCard)
-      }
-    });
+    this._element.querySelector('.element__reset').addEventListener('click', this._handleDeleteCard)
+    this._button.addEventListener('click', this._handleLikeCard);
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._openImage({link: this._link, name: this._name}); 
     })
   };
-  _handleDeleteClick() {
+  _handleLikeCard = () => {
+    if (this._button.classList.contains('element__button_type_like')) {
+      this._deleteLikeCardApi(this.getId())
+    } else {
+      this._likeCardApi(this.getId())
+    }
+  }
+  _handleDeleteCard = () => {
     this._openDeleteCard(this);
   }
   _likeCard() {
