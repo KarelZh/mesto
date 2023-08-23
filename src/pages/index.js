@@ -72,7 +72,7 @@ popupAdd.addEventListener('click', () => {
 
 const popupDelete = new PopupWithConfirmation({
   selector: '.popup_type_delete',
-  deleteCardId: (instance) => {
+  handleDelete: (instance) => {
     api.deleteCard(instance.getId()).then(() => {
       instance.deleteCard();
       popupDelete.close();
@@ -81,11 +81,6 @@ const popupDelete = new PopupWithConfirmation({
     })
   }
 })
-
-//Открытие попапа удаления карточка
-//function openDeleteCard(cardElement, cardId) {
-//  popupDelete.open(cardElement, cardId)
-//}
 
 popupDelete.setEventListeners();
 popupFormCard.setEventListeners(); 
@@ -121,15 +116,7 @@ popupOpen.addEventListener("click", () => {
   popupEditProfile.open();
 });
 
-
-
 popupEditProfile.setEventListeners();
-
-
-
-
-
-
 
 
 //открытие попапа с картинкой

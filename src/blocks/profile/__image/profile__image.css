@@ -2,7 +2,7 @@
     max-width: 120px;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 5;
+    z-index: 2;
 }
 .profile__image:hover {
     opacity: 0.5;

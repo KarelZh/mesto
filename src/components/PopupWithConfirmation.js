@@ -1,20 +1,19 @@
 import { Popup } from "./Popup.js"
 
 class PopupWithConfirmation extends Popup {
-  constructor({selector, deleteCardId}) {
+  constructor({selector, handleDelete}) {
     super({selector});
-    this._deleteButton = document.querySelector('.popup__button_type_delete')
-    this._deleteCardId = deleteCardId;
+    this._deleteButton = this._popup.querySelector('.popup__button_type_delete')
+    this._handleDelete = handleDelete;
   }
   open(item) {
     super.open();
     this._item = item;
-    //this._itemId = itemId;
   }
   setEventListeners() {
     super.setEventListeners();
     this._deleteButton.addEventListener('click', () => {
-      this._deleteCardId(this._item)
+      this._handleDelete(this._item)
     })
   }
 }
